@@ -1,0 +1,15 @@
+#
+library(lpSolveAPI)
+Radiation= make.lp(5,6) ## number of constraints and number of decision variables
+set.column(Radiation, 1, c(2,0, 0, 0,0))
+set.column(Radiation, 2, c(0,1, 0, 0,2))
+set.column(Radiation, 3, c(0,0,1.5,1.5,0))
+set.column(Radiation, 4, c(0,2,1, 0, 0))
+set.column(Radiation, 5, c(1,0,0, 1, 2))
+set.constr.type(Radiation, c(">=",">=",">=",">=", "<="))
+set.rhs(Radiation, c(7,7,7,7,5))
+set.objfn(Radiation, c(3,4.5, 2.5,1, 2, 4))
+lp.control(Radiation,sense='min')
+solve(Radiation)
+get.objective(Radiation)
+get.variables(Radiation)
